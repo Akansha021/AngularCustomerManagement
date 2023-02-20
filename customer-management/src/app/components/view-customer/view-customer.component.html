@@ -1,0 +1,91 @@
+
+<p *ngIf="errorMessage" class="text-danger" style="padding: 10px; font-size: 45; margin: 5px; text-align: center;">Something Went Wrong</p>
+
+<div  *ngIf="!errorMessage" style="margin-top: 75px;">
+<div class="row" style="display:flex; flex-direction: row; ">
+     <div class="col-6" style="margin: 6px 15px 6px 6px; ">
+       <button type="submit" routerLink="/add" class="btn btn-success ">Add</button>
+     </div>
+     <!-- <div>
+        <form [formGroup]="searchCust">
+            <input formControlName="search" />
+          </form>
+     </div>  -->
+    
+    <div class="col input-group" style="margin: 8px; ">
+        <input #input type="text" class="form-control" [(ngModel)]="searchCustomer" placeholder="By Name">
+    </div>
+    
+    <!-- <div  class="col" style="margin: 6px;">
+       <button routerLink="/search/{{input.value}}" type="submit" class="btn btn-success ">Search</button>
+    </div> -->
+   
+</div>
+
+    <table class="table table-bordered" style="margin: 8px;">
+        <tr class="bg-primary">
+           <th *ngFor="let col of headers" style="padding: 10px; margin: 10px; text-align: center; color: #fff;">
+                {{col}}
+           </th>
+        </tr>
+        <ng-container *ngFor="let customer of customers|search:'firstName':searchCustomer  ; let i=index">
+            <p *ngIf="customers?.length === 0">No data</p>
+            <p *ngIf=" (customers | search:'firstName':searchCustomer).length===0">No data</p>
+        <tr *ngIf="customer.flag==true" style="padding: 10px; margin: 5px; text-align: center;"> 
+            <td>{{customer.id}}</td>
+            <td>{{customer.firstName}}</td>
+            <td>{{customer.gender}}</td>
+            <td>{{customer.citizenshipNumber}}</td>
+            <td>{{customer.dateOfBirth | date}}</td>
+            <td>{{customer.mobileNumber}}</td>
+            <td>{{customer.maritalStatus}}</td>
+            <td>{{customer.address}}</td>
+            <td>{{customer.email}}</td>
+            <td>{{customer.addedBy}}</td>
+            <td>{{customer.modifiedDate | date}}</td>
+            <td>{{customer.modifiedBy}}</td>
+            <td>{{customer.status}}</td>
+            <td >
+                <div style="margin: 20px; ">
+                <button  style="border: none; background-color: #fff;" routerLink="/customerdetails/{{customer.id}}" type="button" >
+                    <img  src="assets/img/view.png"
+                    width="10" 
+                    height="10"/>
+                </button>
+                <button *ngIf="customer.status=='ACTIVE'" type="button" style="border: none; background-color: #fff;" routerLink="/update/{{customer.id}}">  
+                    <img  src="assets/img/edit.png"
+                    width="10" 
+                    height="10" />     
+                </button>
+                <button style="border: none; background-color: #fff;" [hidden]="(customer.status=='INACTIVE')" (click)="inActiveStatus(customer,i)" type="button" value="customer.id">
+                    <img style="margin: 2px;" src="assets/img/lock.png"
+                    width="10" 
+                    height="10" />
+                </button>
+                <button style="border: none; background-color: #fff;" [hidden]="(customer.status=='ACTIVE')" (click)="activeStatus(customer,i)" type="button" >
+                    <img style="margin: 2px;" src="assets/img/key.png"
+                    width="10" 
+                    height="10"/>
+                </button>
+                <button *ngIf="customer.status=='ACTIVE'" style="border: none; background-color: #fff;" (click)="deleteCustomer(customer,i)" type="button" >
+                    <img  src="assets/img/delete.png"
+                    width="10" 
+                    height="10"/>
+                </button>
+                </div>
+            </td>         
+        </tr>
+    </ng-container>
+    </table>
+    <div>
+        <ul class="nav nav-pills">
+            <li class="nav-items" *ngFor="let p of pageSize; let i=index">
+              <a class="nav-link" href="" (click)="setPage(i,$event)">{{i}}</a> 
+            </li>
+            </ul>
+    </div>
+</div>
+
+
+
+    

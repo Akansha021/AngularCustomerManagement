@@ -1,0 +1,77 @@
+<!-- <div class="col input-group" style="margin: 8px;">
+    <input #input type="text" class="form-control" placeholder="Input">
+</div>
+
+
+<div routerLink="/search/{{input.value}}" class="col" style="margin: 8px;">
+    <button type="submit" class="btn btn-success ">Search</button>
+ </div>
+ -->
+
+ <div>
+    <button routerLink="/view" class="btn btn-success" type="button">Back</button>
+  </div>
+
+<table  class="table table-bordered" style="margin: 15px;">
+    <tr class="bg-primary">
+       <th *ngFor="let col of headers" style="padding: 15px; margin: 5px; text-align: center; color: #fff;">
+            {{col}}
+       </th>
+    </tr>
+
+    <!-- <ng-container *ngFor="let customer of searchCustomer ; let i=index">  -->
+    <tr > 
+        <td>{{searchCustomer.id}}</td>
+        <td>{{searchCustomer.firstName}}</td>
+        <td>{{searchCustomer.gender}}</td>
+        <td>{{searchCustomer.citizenshipNumber}}</td>
+        <td>{{searchCustomer.dateOfBirth}}</td>
+        <td>{{searchCustomer.mobileNumber}}</td>
+        <td>{{searchCustomer.address}}</td>
+        <td>{{searchCustomer.email}}</td>
+        <td>{{searchCustomer.addedBy}}</td>
+        <td>{{searchCustomer.modifiedBy}}</td>
+        <td>{{searchCustomer.status}}</td>
+        <td>
+            <a routerLink="/update/{{searchCustomer.id}}">
+                <i>
+                <img src="assets/img/editing.png"
+                width="10" 
+                height="10" />
+                </i>
+            </a>
+
+            <!-- <button [routerLink]="'/update/{{customer.id}}'" type="button" >
+                <img src="assets/img/editing.png"
+                width="10" 
+                height="10" />
+            </button> -->
+        
+            <button [hidden]="(searchCustomer.status=='INACTIVE')" (click)="inActiveStatus(searchCustomer)" type="button" value="customer.id">
+                <!-- <h1>{{customer.id}}</h1> -->
+                <i>
+                <img src="assets/img/lock.png"
+                width="10" 
+                height="10" />
+                </i>
+            </button>
+            
+            <button [hidden]="(searchCustomer.status=='ACTIVE')" (click)="activeStatus(searchCustomer)" type="button" >
+                <i>
+                <img src="assets/img/key.png"
+                width="10" 
+                height="10"/>
+            </i>
+            </button>
+
+            <button (click)="deleteCustomer(searchCustomer)" type="button" >
+                <img src="assets/img/delete.png"
+                width="10" 
+                height="10"/>
+            </button>
+            
+        </td>
+        
+    </tr>
+<!-- </ng-container>  -->
+</table>

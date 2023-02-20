@@ -1,0 +1,58 @@
+<div style="margin-top: 75px;">
+<button routerLink="/view" class="btn btn-success "style="margin: 5px;" type="button">Back</button>
+<div class="container" style="padding: 5px; margin:10px; align-items: self-start; justify-content: start; border: 2px brown solid;" >
+<div>
+    
+<h6><b>Id: </b> {{customer.id}}</h6>
+</div>
+<div>
+<h6><b>First Name: </b> {{customer.firstName}}</h6>
+</div>
+<div>
+<h6><b>Middle Name: </b> {{customer.middleName}}</h6>
+</div>
+<div>
+<h6><b>Last Name: </b> {{customer.lastName}}</h6>
+</div>
+<div>
+<h6><b>Gender: </b> {{customer.gender}}</h6>
+</div>
+<div>
+<h6><b>Citizenship Number: </b> {{customer.citizenshipNumber}}</h6>
+</div>
+<div>
+<h6><b>DOB: </b> {{customer.dateOfBirth | date}}</h6>
+</div>
+<div>
+<h6><b>Contact: </b> {{customer.mobileNumber}}</h6>
+</div>
+<div>
+<h6><b>Marital Status: </b> {{customer.maritalStatus}}</h6>
+</div>
+<div>
+<h6><b>Address: </b> {{customer.address}}</h6>
+</div>
+<div>
+<h6><b>Email Address: </b>{{customer.email}}</h6>
+</div>
+<div>
+<h6><b>Added By: </b> {{customer.addedBy}}</h6>
+</div>
+<div>
+<h6><b>Added Date: </b> {{customer.addedDate |date}}</h6>
+</div>
+<div>
+<h6><b>Modified By: </b> {{customer.modifiedBy}}</h6>
+</div>
+<div>
+<h6><b>Modified Date: </b> {{customer.modifiedDate |date}}</h6>
+</div>
+<div>
+<h6><b>Status: </b>{{customer.status}}</h6>
+</div>
+<h6><b>Family Details</b></h6>
+<ng-container *ngFor="let c of value; ">
+<h6 *ngIf="c.flag==true"><b>{{c.relationship}} : {{c.relationPersonName}}</b></h6>
+</ng-container>
+</div>
+</div>

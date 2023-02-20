@@ -1,0 +1,30 @@
+<nav style="position:fixed;top:0;width:100%" class="navbar navbar-dark bg-primary justify-content-between">
+
+  <div style="margin: 4px;">
+  <img  src="assets/img/customer.png"
+  width="80" 
+  height="40"/>
+
+    <a class="navbar-brand" style="margin: 8px; padding: 4px;">Customer Management</a>
+  
+    
+  </div>
+    <form class="form-inline">
+      <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> 
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+    </form>
+    
+    <div>
+    <img *ngIf="viewcustomer.isLoggedIn()" src="assets/img/user.png"
+                    width="25" 
+                    height="25"
+                    margin="5"/>
+                    <button *ngIf="viewcustomer.isLoggedIn()" (click)="logout()" type="button" class="btn btn-success ">Logout</button>
+                    <button style="margin-right: 5px;" *ngIf="!viewcustomer.isLoggedIn() && router.url!='/register'" routerLink="/register" type="button" class="btn btn-success ">Register</button>
+    </div>
+  </nav>
+
+  <!-- <app-login></app-login> -->
+  <!-- <app-view-customer></app-view-customer> -->
+
+<router-outlet></router-outlet> 

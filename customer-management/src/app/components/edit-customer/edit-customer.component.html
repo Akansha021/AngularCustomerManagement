@@ -1,0 +1,107 @@
+<div class="row" style="text-align: center; margin: 5px;">
+    <h5>Edit Customer</h5>
+</div>
+<div *ngIf="messageSuccess" class="alert alert-success fade show"  style="display: flex; align-items: center; justify-content: center;" role="alert">
+  Successfully Added Customer
+</div>
+<div *ngIf="messageError" class="alert alert-danger fade show"  style="display: flex; align-items: center; justify-content: center;" role="alert">
+  There is something wrong
+</div>
+<div class="row" style="margin: 15px;">
+    <form [formGroup]="editcustomer" #customerdata="ngForm" (ngSubmit)="onUpdate()" class="d-grid gap-3" style=" border: 4px solid blueviolet; padding: 25px;">
+        <div class="form-group">
+          <label for="First Name">First Name</label>
+          <input  type="text"  formControlName="firstName" [ngClass]="{'is-invalid':editcustomer.controls.firstName.errors}" class="form-control" id="First Name" placeholder="Enter First Name">
+          <p *ngIf="editcustomer.controls.firstName?.errors?.required && editcustomer.controls.firstName.touched" class="text-danger">First Name is required</p>
+        </div>
+        <div class="form-group">
+          <label for="Middle Name">Middle Name</label>
+          <input  type="text" formControlName="middleName" [ngClass]="{'is-invalid':editcustomer.controls.middleName.errors && editcustomer.controls.middleName.touched}" class="form-control" id="Middle Name" placeholder="Enter Middle Name">
+          <p *ngIf="editcustomer.controls.middleName?.errors?.required && editcustomer.controls.middleName.touched" class="text-danger">Middle Name is required</p>
+        </div>
+        <div class="form-group">
+            <label for="Last Name">Last Name</label>
+            <input type="text" formControlName="lastName" [ngClass]="{'is-invalid':editcustomer.controls.lastName.errors && editcustomer.controls.lastName.touched}" class="form-control" id="Last Name" placeholder="Enter Last Name">
+          <p *ngIf="editcustomer.controls.lastName?.errors?.required && editcustomer.controls.lastName.touched" class="text-danger">Last Name is required</p>
+        </div>
+        <div class="form-group" [ngClass]="{'is-invalid':editcustomer.controls.gender.errors}">
+            <label for="Gender">Gender</label>
+             <div class="form-check">
+                <input formControlName="gender"  class="form-check-input" type="radio" name="gender" id="gender1" value="Male">
+                <label class="form-check-label" for="gender1">
+                  Male
+                </label>
+              </div>
+              <div class="form-check">
+                <input formControlName="gender" class="form-check-input" type="radio" name="gender" id="gender2" value="Female">
+                <label class="form-check-label" for="gender2">
+                  Female
+                </label>
+              </div>
+        </div>
+        <div class="form-group">
+            <label for="Date-of-Birth" >Date of Birth</label>
+            <input formControlName="dateOfBirth" name="dateOfBirth"  [ngClass]="{'is-invalid':editcustomer.controls.dateOfBirth.errors && editcustomer.controls.dateOfBirth.touched}" type="date" class="form-control" id="Date-of-Birth" placeholder="Enter Date-of-Birth">
+            <p *ngIf="editcustomer.controls.dateOfBirth?.errors?.required && editcustomer.controls.dateOfBirth.touched" class="text-danger">DOB is required</p>
+        </div>
+        <div class="form-group">
+            <label for="Citizenship Number">Citizenship Number</label>
+            <input formControlName="citizenshipNumber" [ngClass]="{'is-invalid':editcustomer.controls.citizenshipNumber.errors && editcustomer.controls.citizenshipNumber.touched}" type="text" class="form-control" id="Citizenship Number" placeholder="Enter Citizenship Number">
+            <p *ngIf="editcustomer.controls.citizenshipNumber?.errors?.required && editcustomer.controls.citizenshipNumber.touched" class="text-danger">Citizenship Number is required</p>
+        </div>
+        <div class="form-group">
+            <label for="Address">Address</label>
+            <input formControlName="address" [ngClass]="{'is-invalid':editcustomer.controls.address.errors && editcustomer.controls.address.touched}" type="text" class="form-control" id="Address" placeholder="Address">
+            <p *ngIf="editcustomer.controls.address?.errors?.required && editcustomer.controls.address.touched" class="text-danger">Address field is required</p>
+        </div>
+        <div class="form-group" [ngClass]="{'is-invalid':submitted && editcustomer.controls.maritalStatus.errors}">
+            <label for="Marital Status">Marital Status</label>
+            <div class="form-check">
+                <input #maritalStatus (click)="add($event)" formControlName="maritalStatus"  class="form-check-input" type="radio" name="maritalStatus" id="maritalStatus1" value="Married">
+                <label class="form-check-label" for="maritalStatus1">
+                  Married
+                </label>
+              </div>
+              <div class="form-check">
+                <input #maritalStatus (click)="add($event)" formControlName="maritalStatus" class="form-check-input" type="radio" name="maritalStatus" id="maritalStatus2" value="Unmarried">
+                <label class="form-check-label" for="maritalStatus2">
+                  Unmarried
+                </label>
+              </div>
+              <p *ngIf="submitted && editcustomer.controls.maritalStatus?.errors?.required && editcustomer.controls.maritalStatus" class="text-danger">Marital Status field is required</p>
+        </div>
+        <div class="form-group">
+            <label for="Mobile Number">Contact Number</label>
+            <input formControlName="mobileNumber" [ngClass]="{'is-invalid':editcustomer.controls.mobileNumber.errors && editcustomer.controls.mobileNumber.touched}" type="number" class="form-control" id="Mobile Number" placeholder="Mobile Number">
+            <p *ngIf="editcustomer.controls.mobileNumber?.errors?.required && editcustomer.controls.mobileNumber.touched" class="text-danger">Contact is required</p>
+        </div>
+        <div class="form-group">
+            <label for="Email Address">Email Address</label>
+            <input formControlName="email" [ngClass]="{'is-invalid':submitted && editcustomer.controls.email.errors}" type="text" class="form-control" id="Email Address" placeholder="Enter Email Address">
+            <p *ngIf="editcustomer.controls.email?.errors?.required && editcustomer.controls.email.touched" class="text-danger">Email is required</p>
+        </div>
+        <div formArrayName="customerFamilyDetailsRequest">
+          <label>Family Details</label>
+          <div class="form-group" >
+            <div  *ngFor="let group of editcustomer.controls.customerFamilyDetailsRequest['controls'];let i=index;" [formGroupName]="i" >
+              <label for="Relation">Relation Name</label>
+              
+            <input style="background-color: lightgray;" (input)="findDuplicate(group.controls.relationship, i,editcustomer.get('maritalStatus').value)" [readOnly]="editcustomer.controls['customerFamilyDetailsRequest'].controls[i].controls.relationship.value== 'Father' ||editcustomer.controls['customerFamilyDetailsRequest'].controls[i].controls.relationship.value== 'Mother' ||editcustomer.controls['customerFamilyDetailsRequest'].controls[i].controls.relationship.value== 'Grand Father' ||editcustomer.controls['customerFamilyDetailsRequest'].controls[i].controls.relationship.value== 'Spouse' "  #famdetails (click)="spouse($event,editcustomer.get('maritalStatus').value,i)"   value="Relation Name"  type="text" formControlName="relationship" class="form-control" id="Relation" placeholder="Enter Relation Name">
+            <p *ngIf="group.controls.relationship?.errors?.required && group.controls.relationship.touched" class="text-danger">This field is required</p>
+            <p *ngIf="group.controls.relationship?.errors?.pattern && group.controls.relationship.touched" class="text-danger">Only alphabets allowed and first letter must be capital</p>
+            <p *ngIf="group.controls.relationship?.errors?.duplicateName " class="text-danger">{{group.controls.relationship.value}} already exists. So, please add other entries</p>
+              <label for="Person Name">Person Name</label>
+            <input  type="text"  formControlName="relationPersonName"  class="form-control" id="Person Name" placeholder="Enter Person Name">
+            <p *ngIf="group.controls.relationPersonName?.errors?.required && group.controls.relationPersonName.touched" class="text-danger">{{group.controls.relationship.value}} Name is required</p>
+            <p *ngIf="group.controls.relationPersonName?.errors?.pattern && group.controls.relationPersonName.touched" class="text-danger">Only alphabets allowed and first letter must be capital</p>
+            <button  type="button" *ngIf="(!(editcustomer.controls['customerFamilyDetailsRequest'].controls[i].controls.relationship.value== 'Father' ||editcustomer.controls['customerFamilyDetailsRequest'].controls[i].controls.relationship.value== 'Mother' ||editcustomer.controls['customerFamilyDetailsRequest'].controls[i].controls.relationship.value== 'Grand Father' ||editcustomer.controls['customerFamilyDetailsRequest'].controls[i].controls.relationship.value== 'Spouse')) || disabledButton" (click)="removeCustomerFamilyDetails(i)" class="btn btn-light btn-add bg-danger "><i>-</i>Remove</button>
+            </div> 
+            <button type="button" (click)="addMoreCustomerFamilyDetails()" class="btn btn-light btn-add "><i>+</i>Add More</button>
+            </div>
+        </div>                  
+        <div class="form-group" style="margin: 8px;">
+            <button [disabled]="!(editcustomer.valid && editcustomer.dirty)" type="submit" class="btn btn-success ">Update</button>
+            <button (click)="cancel()" type="button" class="btn btn-primary ">Cancel</button>
+         </div>
+      </form>
+</div>
